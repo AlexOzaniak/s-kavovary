@@ -14,7 +14,18 @@ if (config.nodeEnv === "production") {
   app.set("trust proxy", 1);
 }
 
-app.use(helmet());
+app.use(
+  helmet({
+    frameguard: false,
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "frame-ancestors": ["*"],
+      },
+    },
+  })
+);
 app.use(compression());
 app.use(morgan(config.nodeEnv === "production" ? "combined" : "dev"));
 app.use(
