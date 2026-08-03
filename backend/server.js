@@ -14,6 +14,7 @@ if (config.nodeEnv === "production") {
   app.set("trust proxy", 1);
 }
 
+// Allow the site to be embedded by external pages.
 app.use(
   helmet({
     frameguard: false,
