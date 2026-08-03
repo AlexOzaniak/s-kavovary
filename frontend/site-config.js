@@ -12,7 +12,9 @@ window.SKV_CONFIG = {
   },
   map: {
     embedUrl:
-      "https://www.google.com/maps?q=Klin%20931%2C%20023%2022%20Kloko%C4%8Dov&output=embed",
+      "https://www.google.com/maps/search/?api=1&query=Holazovci+931+023+22+Kloko%C4%8Dov",
+    directionsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Holazovci+931+023+22+Kloko%C4%8Dov",
   },
   consentCategories: {
     necessary: {

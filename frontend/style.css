@@ -343,6 +343,25 @@ p{margin:0 0 1em;color:var(--text-body);font-weight:400;}
 }
 .map-frame iframe{display:block;}
 
+.map-preview{
+  min-height:100%;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:20px;
+  background:linear-gradient(135deg, rgba(247,241,230,0.96), rgba(239,229,211,0.9));
+}
+.map-preview__content h3{
+  font-size:22px;
+  margin-bottom:8px;
+}
+.map-preview__content p{
+  max-width:36ch;
+  margin:0;
+}
+.map-preview .btn{align-self:flex-start;}
+
 .consent-embed-placeholder{
   min-height:100%;
   padding:24px;

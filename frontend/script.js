@@ -367,19 +367,18 @@ function renderConsentButtonTriggers() {
 
 function renderFunctionalEmbeds() {
   document.querySelectorAll("[data-consent-embed='functional']").forEach((container) => {
-    const embedUrl = container.getAttribute("data-embed-url") || SITE_CONFIG.map?.embedUrl;
+    const mapUrl = container.getAttribute("data-embed-url") || SITE_CONFIG.map?.embedUrl || SITE_CONFIG.map?.directionsUrl;
 
-    if (hasConsent("functional")) {
+    if (hasConsent("functional") && mapUrl) {
       container.innerHTML = `
-        <iframe
-          src="${embedUrl}"
-          width="100%"
-          height="100%"
-          style="border:0;"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          title="Mapa — S-kávovary, Klokočov">
-        </iframe>
+        <div class="map-preview">
+          <div class="map-preview__content">
+            <p class="consent-embed-placeholder__eyebrow">Mapa</p>
+            <h3>Holazovci 931, 023 22 Klokočov</h3>
+            <p>Otvoríme vám presnú adresu priamo v mapách, aby ste ju ľahko našli.</p>
+          </div>
+          <a class="btn btn-primary btn-small" href="${mapUrl}" target="_blank" rel="noopener noreferrer">Otvoriť na mape</a>
+        </div>
       `;
       return;
     }
@@ -389,7 +388,7 @@ function renderFunctionalEmbeds() {
         <div>
           <p class="consent-embed-placeholder__eyebrow">Funkčný obsah</p>
           <h3>Mapa je skrytá, kým nepovolíte funkčné cookies.</h3>
-          <p>Po povolení sa načíta vložená mapa od Google Maps.</p>
+          <p>Po povolení sa zobrazí odkaz na presnú adresu.</p>
         </div>
         <button type="button" class="btn btn-ghost btn-small" data-open-cookie-settings>Spravte cookies</button>
       </div>
