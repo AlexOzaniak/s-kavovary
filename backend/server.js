@@ -59,6 +59,7 @@ app.use("/api", bookingRoutes);
 const frontendPath = path.join(__dirname, "..", "frontend");
 app.use(
   express.static(frontendPath, {
+    index: false,
     maxAge: 0,
     etag: false,
     lastModified: false,
