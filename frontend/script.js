@@ -369,19 +369,15 @@ function renderFunctionalEmbeds() {
   document.querySelectorAll("[data-consent-embed='functional']").forEach((container) => {
     const mapUrl = container.getAttribute("data-embed-url") || SITE_CONFIG.map?.embedUrl || SITE_CONFIG.map?.directionsUrl;
 
-    if (mapUrl) {
+    if (hasConsent("functional") && mapUrl) {
       container.innerHTML = `
-        <a class="map-preview" href="${mapUrl}" target="_blank" rel="noopener noreferrer">
-          <div class="map-preview__visual" aria-hidden="true">
-            <span class="map-preview__pin"></span>
-          </div>
-          <div class="map-preview__content">
-            <p class="consent-embed-placeholder__eyebrow">Mapa</p>
-            <h3>Holazovci 931, 023 22 Klokočov</h3>
-            <p>Preskúmajte adresu a otvorte ju priamo v mapách.</p>
-          </div>
-          <span class="btn btn-primary btn-small">Otvoriť na mape</span>
-        </a>
+        <iframe
+          title="Poloha prevádzky S-kávovary"
+          src="${mapUrl}"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
       `;
       return;
     }
@@ -389,9 +385,10 @@ function renderFunctionalEmbeds() {
     container.innerHTML = `
       <div class="consent-embed-placeholder">
         <div>
-          <p class="consent-embed-placeholder__eyebrow">Funkčný obsah</p>
-          <h3>Mapa je momentálne nedostupná.</h3>
-          <p>Skúste ju otvoriť priamo v mapách.</p>
+          <p class="consent-embed-placeholder__eyebrow">Mapa</p>
+          <h3>Mapa sa zobrazí po potvrdení cookies</h3>
+          <p>Ak chcete vidieť vloženú mapu, povoľte prosím funkčné cookies.</p>
+          <button type="button" class="btn btn-primary btn-small" data-open-cookie-settings>Povoliť cookies</button>
         </div>
       </div>
     `;

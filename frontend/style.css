@@ -364,6 +364,32 @@ p{margin:0 0 1em;color:var(--text-body);font-weight:400;}
 }
 .map-action-card .btn{align-self:flex-start;}
 
+.map-embed-frame{
+  border:1px solid rgba(117, 77, 34, 0.16);
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 12px 28px rgba(75, 31, 15, 0.06);
+}
+
+.map-embed-frame iframe{
+  display:block;
+  width:100%;
+  min-height:320px;
+  border:0;
+}
+
+.map-embed-frame .consent-embed-placeholder{
+  min-height:320px;
+  align-items:flex-start;
+}
+
+.map-embed-caption{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+}
+
 .map-preview{
   min-height:100%;
   padding:24px;
