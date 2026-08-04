@@ -25,6 +25,7 @@ app.use(
       directives: {
         ...helmet.contentSecurityPolicy.getDefaultDirectives(),
         "frame-ancestors": ["*"],
+        "frame-src": ["'self'", "https://www.google.com", "https://maps.google.com"],
       },
     },
   })
