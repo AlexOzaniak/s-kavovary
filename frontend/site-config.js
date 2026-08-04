@@ -5,7 +5,7 @@ window.SKV_CONFIG = {
   cookieConsentKey: "s_kavovary_cookie_consent",
   contact: {
     name: "S-kávovary",
-    address: "Klin 931, 023 22 Klokočov",
+    address: "Holazovci 931, 023 22 Klokočov",
     phone: "+421 951 866 933",
     email: "s_kavovary@yahoo.com",
     privacyEmail: "s_kavovary@yahoo.com",
@@ -14,7 +14,7 @@ window.SKV_CONFIG = {
     embedUrl:
       "https://www.google.com/maps?q=Holazovci%20931%2C%20023%2022%20Kloko%C4%8Dov&z=15&output=embed",
     directionsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Holazovci+931+023+22+Kloko%C4%8Dov",
+      "https://www.google.com/maps/search/?api=1&query=Holazovci+931%2C+023+22+Kloko%C4%8Dov",
   },
   consentCategories: {
     necessary: {
