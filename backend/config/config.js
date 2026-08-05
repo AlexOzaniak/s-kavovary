@@ -15,7 +15,7 @@ const config = {
     host: required("SMTP_HOST", "smtp.gmail.com"),
     port: parseInt(required("SMTP_PORT", "465"), 10),
     // `SMTP_SECURE` should be "true" for SSL (465), "false" for STARTTLS (587).
-    secure: required("SMTP_SECURE", "false") === "true",
+    secure: required("SMTP_SECURE", "true") === "true",
     user: required("SMTP_USER"),
     pass: required("SMTP_PASS"),
     // Only set to false for local development when antivirus/firewall SSL
