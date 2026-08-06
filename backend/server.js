@@ -30,6 +30,8 @@ app.use(
     },
   })
 );
+// robim si tu poznamku
+
 app.use(compression());
 app.use(morgan(config.nodeEnv === "production" ? "combined" : "dev"));
 app.use(
