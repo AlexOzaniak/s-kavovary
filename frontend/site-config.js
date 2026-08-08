@@ -21,8 +21,8 @@ window.SKV_CONFIG = {
       label: "Nevyhnutné",
       shortLabel: "Nevyhnutné cookies",
       purpose: "Zabezpečujú základné fungovanie webu a uložia si vašu voľbu ohľadom cookies.",
-      data: "Súhlas s cookies a technické údaje potrebné na fungovanie formulára.",
-      duration: "Súhlas do 6 mesiacov, ostatné len počas odoslania formulára.",
+      data: "Súhlas s cookies a technické údaje potrebné na fungovanie stránky.",
+      duration: "Súhlas do 6 mesiacov.",
       thirdParties: "Žiadne",
     },
     functional: {

@@ -1,41 +1,44 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
-function required(name, fallback = undefined) {
-  const value = process.env[name] ?? fallback;
-  return value;
+function readPort(value) {
+  const port = Number.parseInt(value ?? "3000", 10);
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    throw new Error("PORT must be a valid TCP port number.");
+  }
+  return port;
+}
+
+function readPublicSiteUrl(value, required) {
+  if (!value) {
+    if (required) throw new Error("PUBLIC_SITE_URL must be set in production.");
+    return "";
+  }
+
+  let url;
+  try {
+    url = new URL(value);
+  } catch {
+    throw new Error("PUBLIC_SITE_URL must be an absolute URL, e.g. https://www.example.sk.");
+  }
+
+  if (url.protocol !== "https:") {
+    throw new Error("PUBLIC_SITE_URL must use HTTPS in production.");
+  }
+
+  return url.origin;
+}
+
+const nodeEnv = process.env.NODE_ENV || "development";
+if (!["development", "test", "production"].includes(nodeEnv)) {
+  throw new Error("NODE_ENV must be development, test, or production.");
 }
 
 const config = {
-  port: parseInt(required("PORT", "3000"), 10),
-  nodeEnv: required("NODE_ENV", "development"),
-
-  corsOrigin: required("CORS_ORIGIN", "*"),
-
-  smtp: {
-    host: required("SMTP_HOST", "smtp.gmail.com"),
-    port: parseInt(required("SMTP_PORT", "465"), 10),
-    // `SMTP_SECURE` should be "true" for SSL (465), "false" for STARTTLS (587).
-    secure: required("SMTP_SECURE", "true") === "true",
-    user: required("SMTP_USER"),
-    pass: required("SMTP_PASS"),
-    // Only set to false for local development when antivirus/firewall SSL
-    // inspection injects a self-signed certificate. Never disable this in
-    // production — it removes protection against man-in-the-middle attacks.
-    rejectUnauthorized: required("SMTP_TLS_REJECT_UNAUTHORIZED", "true") === "true",
-  },
-
-  // Address the business receives new booking requests at.
-  businessEmail: required("BUSINESS_EMAIL", "alexozaniakk@gmail.com"),
-
-  // Whether to also send a confirmation email to the customer.
-  sendCustomerConfirmation: required("SEND_CUSTOMER_CONFIRMATION", "true") === "true",
-
-  business: {
-    name: "S-kávovary",
-    address: "Holazovci 931, 023 22 Klokočov",
-    phone: "+421 951 866 933",
-  },
+  port: readPort(process.env.PORT),
+  nodeEnv,
+  publicSiteUrl: readPublicSiteUrl(process.env.PUBLIC_SITE_URL, nodeEnv === "production"),
+  trustProxy: nodeEnv === "production" ? 1 : false,
 };
 
-module.exports = config; 
+module.exports = config;

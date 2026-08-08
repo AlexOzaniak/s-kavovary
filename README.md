@@ -1,26 +1,32 @@
-# S-kávovary — web + booking backend
+# S-kávovary — produkčný web
 
-## Frontend
-Statické súbory v `/frontend`. Otvorte `index.html` alebo servujte cez akýkoľvek statický server.
-V `script.js` nastavte `API_BASE_URL` na adresu bežiaceho backendu (v produkcii ideálne rovnaká doména, napr. `/api`).
+## Lokálne spustenie
 
-## Backend
-```
+```sh
 cd backend
-npm install
-cp .env.example .env   # doplňte SMTP_USER a SMTP_PASS (Gmail App Password)
-npm start
+npm ci
+npm run dev
 ```
-Server beží na `http://localhost:3000`. Endpoint pre objednávky: `POST /api/bookings`.
 
-**Production deployment notes**
+Web bude dostupný na `http://localhost:3000`.
 
-- Use environment variables (see `.env.example`) and never commit secrets.
-- Run `npm ci` in CI and `npm start` to run the server. Consider a process
-	manager like `pm2` or Docker for resilience.
-- Serve the `frontend/` directory from the same host (backend now serves
-	static files). Configure HTTPS (Let's Encrypt or your provider) and set
-	`NODE_ENV=production`.
-- For file-based booking logs, use an external log/DB in production or
-	implement log rotation to avoid unbounded growth.
+## Produkčné nasadenie
 
+Backend slúži aj celý frontend. Pred spustením vytvorte `backend/.env` z `backend/.env.example` a nastavte skutočnú HTTPS adresu:
+
+```dotenv
+NODE_ENV=production
+PORT=3000
+PUBLIC_SITE_URL=https://www.vasa-domena.sk
+```
+
+`PUBLIC_SITE_URL` je povinná v produkcii. Používa sa pre canonical URL, Open Graph meta tagy, `robots.txt` a `sitemap.xml`.
+
+### Docker
+
+```sh
+docker build -t s-kavovary .
+docker run --env-file backend/.env -p 3000:3000 s-kavovary
+```
+
+Aplikácia obsahuje endpoint `GET /api/health` pre health checky. Pred verejným nasadením nastavte HTTPS reverzným proxy alebo platformou hostingu.

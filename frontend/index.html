@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>S-kávovary | Klokočov</title>
 <meta name="description" content="S-kávovary Klokočov: predaj repasovaných kávovarov, profesionálny servis, oprava a odvápnenie. Poctivá práca a férové ceny. Objednajte si termín online.">
-<!-- TODO: Replace placeholder domain with the production URL before launch. -->
 <meta property="og:title" content="S-kávovary | Klokočov">
 <meta property="og:description" content="S-kávovary Klokočov: predaj repasovaných kávovarov, profesionálny servis, oprava a odvápnenie. Poctivá práca a férové ceny. Objednajte si termín online.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://placeholder.example.com/">
-<meta property="og:image" content="https://placeholder.example.com/frontend/image/work.webp.png">
+<link rel="canonical" href="__PUBLIC_SITE_URL__/">
+<meta property="og:url" content="__PUBLIC_SITE_URL__/">
+<meta property="og:image" content="__PUBLIC_SITE_URL__/image/work.webp">
 <meta property="og:locale" content="sk_SK">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2c1f17">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="style.css?v=20260803b">
+<link rel="preload" as="image" href="image/work.webp" type="image/webp">
+<link rel="stylesheet" href="style.css?v=20260808">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -32,7 +31,8 @@
   },
   "telephone": "+421 951 866 933",
   "email": "s_kavovary@yahoo.com",
-  "priceRange": "podľa rozsahu služby"
+  "priceRange": "podľa rozsahu služby",
+  "url": "__PUBLIC_SITE_URL__/"
 }
 </script>
 </head>
@@ -176,7 +176,7 @@
       <div class="booking-intro">
         <p class="eyebrow">Objednávka</p>
         <h2>Dohodnime si termín.</h2>
-        <p class="section-lead">Vyplňte formulár a ozveme sa vám najneskôr do jedného pracovného dňa s potvrdením termínu.</p>
+        <p class="section-lead">Napíšte nám e-mail a dohodneme si termín, ktorý vám vyhovuje.</p>
         <div class="booking-contact-mini">
           <p><strong>Holazovci 931</strong><br>023 22 Klokočov</p>
           <p><a href="tel:+421951866933">+421 951 866 933</a></p>
@@ -184,60 +184,7 @@
         </div>
       </div>
 
-      <form class="booking-form" id="bookingForm" novalidate>
-        <div class="form-row">
-          <label for="name">Meno a priezvisko *</label>
-          <input type="text" id="name" name="name" required minlength="2" maxlength="80" autocomplete="name">
-        </div>
-
-        <div class="form-row form-row-split">
-          <div>
-            <label for="email">E-mail *</label>
-            <input type="email" id="email" name="email" required maxlength="120" autocomplete="email">
-          </div>
-          <div>
-            <label for="phone">Telefón *</label>
-            <input type="tel" id="phone" name="phone" required maxlength="20" autocomplete="tel" placeholder="+421 9xx xxx xxx">
-          </div>
-        </div>
-
-        <div class="form-row form-row-split">
-          <div>
-            <label for="service">Služba *</label>
-            <select id="service" name="service" required>
-              <option value="" disabled selected>Vyberte službu</option>
-              <option value="Predaj repasovaného kávovaru">Predaj repasovaného kávovaru</option>
-              <option value="Servis a oprava">Servis a oprava</option>
-              <option value="Údržba a odvápnenie">Údržba a odvápnenie</option>
-              <option value="Odborné poradenstvo">Odborné poradenstvo</option>
-              <option value="Iné">Iné</option>
-            </select>
-          </div>
-          <div>
-            <label for="preferredDate">Preferovaný termín</label>
-            <input type="date" id="preferredDate" name="preferredDate">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label for="message">Popis požiadavky</label>
-          <textarea id="message" name="message" rows="4" maxlength="1000" placeholder="Napríklad: značka a model kávovaru, popis poruchy..."></textarea>
-        </div>
-
-        <div class="form-row form-consent">
-          <label class="consent-check" for="bookingPrivacyConsent">
-            <input type="checkbox" id="bookingPrivacyConsent" name="privacyConsent" required>
-            <span>Potvrdzujem, že som si prečítal(a) <a href="privacy.html">zásady ochrany osobných údajov</a> a súhlasím so spracovaním údajov na vybavenie rezervácie.</span>
-          </label>
-          <p class="form-note">Údaje použijeme len na vybavenie rezervácie a následnú komunikáciu o vašej požiadavke.</p>
-        </div>
-
-        <input type="text" id="website" name="website" class="hp-field" tabindex="-1" autocomplete="off">
-
-        <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Odoslať objednávku</button>
-
-        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-      </form>
+      <a class="btn btn-primary btn-small" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=s_kavovary%40yahoo.com" target="_blank" rel="noopener noreferrer">Napíšte nám Mail</a>
     </div>
   </section>
 
@@ -267,8 +214,8 @@
         <div class="map-action-card map-action-card--featured">
           <div class="map-action-card__content">
             <p class="map-action-card__eyebrow">Navigácia</p>
-            <h3>Mapa prevádzky je priamo na stránke</h3>
-            <p>Vidíte presnú polohu prevádzky v Klokočove a môžete sa k nej dostať priamo z Google Maps.</p>
+            <h3>Mapa prevádzky </h3>
+            <p>Vidíte presnú polohu prevádzky  a môžete sa k nej dostať priamo cez Google Maps.</p>
           </div>
 
           <div class="map-embed-frame" data-consent-embed="functional" data-embed-url="https://www.google.com/maps?q=Holazovci%20931%2C%20023%2022%20Kloko%C4%8Dov&z=15&output=embed">
@@ -319,7 +266,7 @@
   </div>
 </footer>
 
-<script src="site-config.js?v=20260803b"></script>
-<script src="script.js?v=20260803b"></script>
+<script src="site-config.js?v=20260808"></script>
+<script src="script.js?v=20260808"></script>
 </body>
 </html>

@@ -1,36 +1,5 @@
-// ---- Shared config ----
-// Point this to your running backend. In production, host it under the
-// same domain (e.g. /api) so this can just be a relative path.
-// In production, set `window.SKV_CONFIG.apiBaseUrl` in `site-config.js` or
-// keep API calls relative by setting `apiBaseUrl: ""`.
 const SITE_CONFIG = window.SKV_CONFIG || {};
 
-function resolveApiBaseUrl() {
-  if (typeof SITE_CONFIG.apiBaseUrl === "string") {
-    return SITE_CONFIG.apiBaseUrl;
-  }
-
-  const { protocol, hostname, port } = window.location;
-
-  // Local development often serves the frontend from a static server on a
-  // different port than the backend. Fall back to the backend port used by
-  // this project so the booking form works out of the box.
-  if (protocol === "file:") {
-    return "http://localhost:3000";
-  }
-
-  if (
-    (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") &&
-    port &&
-    port !== "3000"
-  ) {
-    return "http://localhost:3000";
-  }
-
-  return "";
-}
-
-const API_BASE_URL = resolveApiBaseUrl();
 
 const CONSENT_VERSION = SITE_CONFIG.cookieConsentVersion || "1.0";
 const CONSENT_STORAGE_KEY = SITE_CONFIG.cookieConsentKey || "s_kavovary_cookie_consent";
@@ -127,21 +96,6 @@ function hasConsent(category) {
   return Boolean(activeConsent && activeConsent.categories && activeConsent.categories[category]);
 }
 
-function setButtonState(loadingButton, disabled) {
-  if (!loadingButton) return;
-
-  loadingButton.disabled = disabled;
-}
-
-function setStatus(message, type) {
-  if (!statusEl) return;
-  statusEl.textContent = message;
-  statusEl.className = "form-status" + (type ? ` ${type}` : "");
-}
-
-function isValidEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
 
 function createBanner() {
   const banner = document.createElement("section");
@@ -408,7 +362,6 @@ function initMotion() {
     ...document.querySelectorAll(".service-card"),
     ...document.querySelectorAll(".price-list li"),
     ...document.querySelectorAll(".contact-grid > div"),
-    document.querySelector(".booking-form"),
     document.querySelector(".booking-intro"),
     ...document.querySelectorAll(".privacy-section"),
     document.querySelector(".footer-inner"),
@@ -483,97 +436,8 @@ if (navToggle && mainNav) {
   });
 }
 
-// ---- Booking form ----
-const form = document.getElementById("bookingForm");
-const statusEl = document.getElementById("formStatus");
-const submitBtn = document.getElementById("submitBtn");
-const privacyConsentCheckbox = document.getElementById("bookingPrivacyConsent");
-
-function initBookingForm() {
-  if (!form || !submitBtn) return;
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    setStatus("", "");
-
-    const data = Object.fromEntries(new FormData(form).entries());
-
-    // Honeypot — if filled, silently drop (bots only).
-    if (data.website) {
-      return;
-    }
-
-    // GDPR notice: this checkbox must be actively checked before the backend
-    // receives any personal data for the reservation request.
-    if (!privacyConsentCheckbox || !privacyConsentCheckbox.checked) {
-      setStatus("Potvrďte, prosím, spracovanie osobných údajov.", "err");
-      return;
-    }
-
-    // Basic client-side validation. The backend re-validates everything.
-    if (!data.name || data.name.trim().length < 2) {
-      setStatus("Zadajte prosím vaše meno.", "err");
-      return;
-    }
-    if (!data.email || !isValidEmail(data.email.trim())) {
-      setStatus("Zadajte prosím platný e-mail.", "err");
-      return;
-    }
-    if (!data.phone || data.phone.trim().length < 6) {
-      setStatus("Zadajte prosím platné telefónne číslo.", "err");
-      return;
-    }
-    if (!data.service) {
-      setStatus("Vyberte prosím službu.", "err");
-      return;
-    }
-
-    setButtonState(submitBtn, true);
-    submitBtn.textContent = "Odosielam...";
-
-    try {
-      const url = (API_BASE_URL || "") + "/api/bookings";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name.trim(),
-          email: data.email.trim(),
-          phone: data.phone.trim(),
-          service: data.service,
-          preferredDate: data.preferredDate || null,
-          message: (data.message || "").trim(),
-          privacyConsent: true,
-        }),
-      });
-
-
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(result.message || "Objednávku sa nepodarilo odoslať.");
-      }
-
-      setStatus(
-        "Ďakujeme, vaša objednávka bola odoslaná. Ozveme sa vám čo najskôr.",
-        "ok"
-      );
-      form.reset();
-    } catch (error) {
-      setStatus(
-        error.message || "Nastala chyba. Skúste to prosím znova alebo nám zavolajte.",
-        "err"
-      );
-    } finally {
-      setButtonState(submitBtn, false);
-      submitBtn.textContent = "Odoslať objednávku";
-    }
-  });
-}
-
 // ---- Boot sequence ----
 renderCookieBanner();
 renderConsentButtonTriggers();
 syncDeferredContent();
 initMotion();
-initBookingForm();

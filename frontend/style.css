@@ -498,7 +498,7 @@ p{margin:0 0 1em;color:var(--text-body);font-weight:400;}
 .booking-wrap{
   display:grid;
   grid-template-columns:.8fr 1.2fr;
-  gap:56px;
+  gap:51px;
 }
 .booking-contact-mini{
   margin-top:28px;
@@ -508,91 +508,6 @@ p{margin:0 0 1em;color:var(--text-body);font-weight:400;}
 }
 .booking-contact-mini p{margin:0 0 6px;}
 .booking-contact-mini a{text-decoration:underline;}
-
-.booking-form{
-  background:var(--cream);
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:32px;
-  transition:transform .25s var(--ease-smooth), box-shadow .25s var(--ease-smooth), border-color .25s ease;
-}
-.booking-form:hover{
-  transform:translateY(-4px);
-  border-color:rgba(166,89,46,0.28);
-  box-shadow:0 18px 40px rgba(44,31,23,0.08);
-}
-.form-row{margin-bottom:18px;}
-.form-row-split{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-label{
-  display:block;
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:6px;
-  color:var(--ink);
-}
-input,select,textarea{
-  width:100%;
-  padding:12px 14px;
-  font-family:var(--font-body);
-  font-size:15px;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  background:#fff;
-  color:var(--ink);
-}
-input:focus,select:focus,textarea:focus{
-  outline:2px solid var(--copper);
-  outline-offset:1px;
-  border-color:var(--copper);
-}
-textarea{resize:vertical;}
-.form-consent{
-  padding:16px;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  background:rgba(255,255,255,0.55);
-}
-.consent-check{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  font-size:14px;
-  font-weight:500;
-  line-height:1.55;
-  margin:0;
-  cursor:pointer;
-}
-.consent-check input{
-  width:18px;
-  height:18px;
-  margin:2px 0 0;
-  accent-color:var(--copper);
-  flex:0 0 auto;
-}
-.consent-check a{color:var(--copper);text-decoration:underline;}
-.form-note{
-  margin:10px 0 0;
-  font-size:13px;
-  color:var(--muted);
-}
-.hp-field{
-  position:absolute;
-  left:-9999px;
-  width:1px;height:1px;
-  opacity:0;
-}
-.form-status{
-  min-height:20px;
-  margin:14px 0 0;
-  font-size:14px;
-  font-weight:500;
-}
-.form-status.ok{color:#3d5a1e;}
-.form-status.err{color:#a83a2c;}
 
 /* ===================================================
    Footer

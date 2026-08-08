@@ -1,0 +1,7 @@
+.git
+.venv
+.vscode
+**/node_modules
+**/.env
+backend/data
+npm-debug.log
